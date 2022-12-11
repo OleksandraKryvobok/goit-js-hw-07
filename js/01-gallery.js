@@ -49,15 +49,10 @@ function createModal(largeImgSrc) {
 }
 
 function onEscapeKeydown({ code }) {    
-    if(!modalImg.show()) {
-        return;
-    }
-
     if(code === 'Escape') {
         modalImg.close();
     }
 
-    console.log('Hello');
     bodyEL.removeEventListener('keydown', onEscapeKeydown);
 }
 
