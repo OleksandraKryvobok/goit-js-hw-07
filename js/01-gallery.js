@@ -24,8 +24,6 @@ galleryEl.insertAdjacentHTML('beforeend', imgMarkup);
 
 galleryEl.addEventListener('click', onImgClick);
 
-let modalImg;
-
 function onImgClick(e) {
     e.preventDefault();
     
@@ -33,27 +31,21 @@ function onImgClick(e) {
         return;
     }
 
-    const largeImg = e.target.dataset.source;
-    createModal(largeImg);
-}
-
-function createModal(largeImgSrc) {
-    modalImg = basicLightbox.create(`
-        <img src="${largeImgSrc}" width="800" height="600">
-    `);
-
-    modalImg.show(() => {
-        document.addEventListener('keydown', onEscapeKeydown);
+    const modalImg = basicLightbox.create(`<img src="${e.target.dataset.source}" width="800" height="600">`, {
+        onShow: () => document.addEventListener('keydown', onEscapePress),
+        onClose: () => document.removeEventListener('keydown', onEscapePress),
     });
-}
 
-function onEscapeKeydown({ code }) {    
-    if(code === 'Escape') {
-        modalImg.close(() => {
-            document.removeEventListener('keydown', onEscapeKeydown);
-        });
+    modalImg.show();
+
+    function onEscapePress({ code }) {    
+        if(code === 'Escape') {
+            modalImg.close();
+        }
     }
 }
+
+
 
 
 

@@ -25,7 +25,6 @@ const modal = new SimpleLightbox('.gallery a', {
     captionDelay: 250,
 });
 
-modal.on('show.simplelightbox', {});
 
 
 
