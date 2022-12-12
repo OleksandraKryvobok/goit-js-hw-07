@@ -1,9 +1,6 @@
 import { galleryItems } from './gallery-items.js';
 
-// Change code below this line
-
 const galleryEl = document.querySelector('.gallery');
-galleryEl.addEventListener('click', onImgClick);
 
 const imgMarkup = createImageMarkup(galleryItems);
 galleryEl.insertAdjacentHTML('beforeend', imgMarkup);
@@ -22,26 +19,13 @@ function createImageMarkup(gallery) {
     }).join('');
 }
 
-function onImgClick(e) {
-    e.preventDefault();
-    
-    if(!e.target.classList.contains('gallery__image')) {
-        return;
-    }
+const modal = new SimpleLightbox('.gallery a', {
+    captionsData: 'alt',
+    captionPosition: 'bottom' ,
+    captionDelay: 250,
+});
 
-    createModal();
-}
-
-function createModal() {
-    const modal = new SimpleLightbox('.gallery a', {
-        captionsData: 'alt',
-        captionPosition: 'bottom',
-        captionDelay: 250,
-    });
-
-    modal.on('show.simplelightbox', {});
-
-}
+modal.on('show.simplelightbox', {});
 
 
 

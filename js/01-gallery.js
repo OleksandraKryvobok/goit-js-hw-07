@@ -1,7 +1,6 @@
 import { galleryItems } from './gallery-items.js';
 
 const galleryEl = document.querySelector('.gallery');
-const bodyEL = document.querySelector('body');
 
 const imgMarkup = createImageMarkup(galleryItems);
 
@@ -43,17 +42,17 @@ function createModal(largeImgSrc) {
         <img src="${largeImgSrc}" width="800" height="600">
     `);
 
-    modalImg.show();
-
-    bodyEL.addEventListener('keydown', onEscapeKeydown);
+    modalImg.show(() => {
+        document.addEventListener('keydown', onEscapeKeydown);
+    });
 }
 
 function onEscapeKeydown({ code }) {    
     if(code === 'Escape') {
-        modalImg.close();
+        modalImg.close(() => {
+            document.removeEventListener('keydown', onEscapeKeydown);
+        });
     }
-
-    bodyEL.removeEventListener('keydown', onEscapeKeydown);
 }
 
 
